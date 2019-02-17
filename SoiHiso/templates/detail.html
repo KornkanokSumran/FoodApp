@@ -1,0 +1,15 @@
+<head>
+    <meta charset="UTF-8">
+    <title>TypeFood {{ typefood }}</title>
+</head>
+<style>
+body {background-color: rgb(255, 230, 152);}
+</style>
+<h1>{{ typefood.typefood_text }}</h1>
+
+
+{% for name in typefood.name_set.all %}
+    <li>{{ name.name_text}}</li>
+{% endfor %}
+
+
