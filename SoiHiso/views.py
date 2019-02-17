@@ -18,3 +18,19 @@ class Type(generic.ListView):
 class DetailView(generic.DetailView):
     model = TypeFood
     template_name = 'detail.html'
+
+def restaurant(request):
+    return render(request, 'restaurant.html')
+
+def NameRestaurant(request):
+    try:
+        selected_name = Name.objects.get(name_text = request.POST['name'])
+    except (KeyError, Name.DoesNotExist):
+        return render(request, 'restaurant.html', {
+            'error_message': "Not found.",
+        })
+    context = {
+        'Name':selected_name.name_text,
+        'Type': selected_name.typefood,
+    }
+    return render(request, 'reviews.html',context)
