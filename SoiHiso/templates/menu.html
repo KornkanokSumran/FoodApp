@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Name {{ menu }}</title>
 </head>
-<body>
-$END$
-</body>
-</html>
+<style>
+body {background-color: rgb(255, 230, 152);}
+</style>
+<h1>{{ name.name_text }}</h1>
+
+<h3>Menu</h3>
+{% for menu in name.menu_set.all %}
+    <li>{{ menu.menu_text}}</li>
+{% endfor %}
+
+

@@ -19,6 +19,10 @@ class DetailView(generic.DetailView):
     model = TypeFood
     template_name = 'detail.html'
 
+def menu(request,name_id):
+    name = get_object_or_404(Name, pk=name_id)
+    return render(request, 'menu.html', {'name': name})
+
 def restaurant(request):
     return render(request, 'restaurant.html')
 
@@ -34,3 +38,5 @@ def NameRestaurant(request):
         'Type': selected_name.typefood,
     }
     return render(request, 'reviews.html',context)
+
+

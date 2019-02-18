@@ -9,7 +9,7 @@ body {background-color: rgb(255, 230, 152);}
 
 
 {% for name in typefood.name_set.all %}
-    <li>{{ name.name_text}}</li>
+<li><a href="{% url 'SoiHiso:menu' name.id %}">{{ name.name_text}}</a></li>
 {% endfor %}
 
 
