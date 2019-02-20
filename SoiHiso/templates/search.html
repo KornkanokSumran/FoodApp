@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ผลลัพธ์จากการค้นหา</title>
+</head>
+<body>
+        <h1>ผลลัพธ์การค้นหา "{{key}}" : {{count}} การค้นหา</h1> <br>
+        {% for item in lstname %}
+            <fieldset>
+                <h2>
+                    <a href="{% url 'SoiHiso:NameRes' item.0 %}">{{item.1}}
+                    </a>
+                    <br>
+                </h2>
+            </fieldset>
+        {% endfor %}
+</body>
+</html>
