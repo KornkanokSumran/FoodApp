@@ -10,6 +10,32 @@
     <br>
     ร้าน : {{name.name_text}}
     <br>
-    รีวิว :
+
+    รีวิว : {% for reviews in review.review_set.all %}
+    <li>{{ reviews.review_text}}</li>
+    {% endfor %}
 </body>
 </html>
+
+<form action="{% url 'SoiHiso:review' %}" method="post" >
+    {% csrf_token %}
+    <div style="display:none">
+<input type="hidden" name="namerestuarant" value= {{name.id}}>
+</div>
+<h4>--เพิ่มรีวิวที่นี่--</h4>
+Point  :
+    <input type="radio" name="point" value="1" />  1 point
+    <input type="radio" name="point" value="2" />  2 point
+    <input type="radio" name="point" value="3" />  3 point
+    <input type="radio" name="point" value="4" />  4 point
+    <input type="radio" name="point" value="5" />  5 point  <br>
+Review detail :<br>
+    <textarea wrap="virtual" name="review_detail" rows="25" cols="100">
+    </textarea>
+    <br>
+    Upload image : <input type="file" name="filename" size="30" />
+<br>
+<br>
+<input type="submit" value="Submit" />
+<input type="reset" value="Reset" />
+    </form>

@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views import generic
-from .models import TypeFood, Name
+from .models import TypeFood, Name,Review
 from django.shortcuts import get_object_or_404, render
+from django.utils import timezone
 from django.http import HttpResponseRedirect ,HttpResponse
 from django.template import loader
 
@@ -27,19 +28,6 @@ def menu(request,name_id):
 def restaurant(request):
     return render(request, 'restaurant.html')
 
-# def NameRestaurant(request):
-#     try:
-#         selected_name = Name.objects.get(name_text = request.POST['name'])
-#     except (KeyError, Name.DoesNotExist):
-#         return render(request, 'restaurant.html', {
-#             'error_message': "Not found.",
-#         })
-#     context = {
-#         'Name':selected_name.name_text,
-#         'Type': selected_name.typefood,
-#     }
-#     return render(request, 'reviews.html',context)
-
 def search (request):
     keyword = (request.POST['name'])
     namekeword = Name.objects.values_list("id", "name_text").filter(name_text__startswith = keyword)
@@ -47,16 +35,19 @@ def search (request):
     context = {'lstname':namekeword,'count':count,'key':keyword}
     return  render(request,'search.html',context)
 
-# def NameRes(request,name_id):
-#     name = get_object_or_404(Name, pk=name_id)
-#     selected_name = name.name_set.get(pk=request.POST['name'])
-#     context = {
-#         'Name': selected_name.name_text,
-#         'Type': selected_name.typefood,
-#     }
-#     return render(request, 'reviews.html', context)
-
 def NameRes(request,name_id):
     name = get_object_or_404(Name, pk=name_id)
-    return render(request, 'reviews.html', {'name': name})
+    review = Review.objects.values_list("restaurant_id", "review_text").filter(restaurant_id = name.id)
+    context = {'name': name, 'review' : review}
+    return render(request, 'reviews.html', context)
+
+def AddReview(request):
+    name_restuarant = str(request.POST['namerestuarant'])
+    points = int(request.POST['point'])
+    review_detail = str(request.POST['review_detail'])
+    name = Review(restaurant_id=name_restuarant,point=points,review_date=timezone.now(),review_text=review_detail)
+    name.save()
+    return render(request,'reviews.html')
+
+
 
