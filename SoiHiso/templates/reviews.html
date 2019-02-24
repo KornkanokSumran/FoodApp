@@ -11,8 +11,10 @@
     ร้าน : {{name.name_text}}
     <br>
 
-    รีวิว : {% for reviews in review.review_set.all %}
-    <li>{{ reviews.review_text}}</li>
+    รีวิว :{% for data in reviews %}
+    <fieldset>
+    <li>{{data.1}}</li><li>ระดับ {{data.2}} ดาว</li>
+    </fieldset>
     {% endfor %}
 </body>
 </html>

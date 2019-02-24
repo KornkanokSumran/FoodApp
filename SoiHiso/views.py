@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from .models import TypeFood, Name,Review
+from django.db.models import Avg
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.http import HttpResponseRedirect ,HttpResponse
@@ -37,8 +38,8 @@ def search (request):
 
 def NameRes(request,name_id):
     name = get_object_or_404(Name, pk=name_id)
-    review = Review.objects.values_list("restaurant_id", "review_text").filter(restaurant_id = name.id)
-    context = {'name': name, 'review' : review}
+    reviews = Review.objects.values_list("restaurant_id", "review_text", "point").filter(restaurant_id = name.id)
+    context = {'name': name, 'reviews' : reviews}
     return render(request, 'reviews.html', context)
 
 def AddReview(request):
@@ -47,7 +48,4 @@ def AddReview(request):
     review_detail = str(request.POST['review_detail'])
     name = Review(restaurant_id=name_restuarant,point=points,review_date=timezone.now(),review_text=review_detail)
     name.save()
-    return render(request,'reviews.html')
-
-
-
+    return redirect('SoiHiso:NameRes', 1)
