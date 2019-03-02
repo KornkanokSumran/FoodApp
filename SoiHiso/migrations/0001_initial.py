@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Name',
+            name='Restaurant',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name_text', models.CharField(max_length=200)),
@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.AddField(
-            model_name='name',
+            model_name='restaurant',
             name='typefood',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='SoiHiso.TypeFood'),
         ),
