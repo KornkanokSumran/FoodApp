@@ -26,7 +26,7 @@ def restaurant(request):
     return render(request, 'restaurant.html')
 
 def search (request):
-    keyword = (request.POST['name'])
+    keyword = (request.GET['name'])
     namekeword = Restaurant.objects.values_list("id", "name_text").filter(name_text__startswith = keyword)
     count = len(namekeword)
     context = {'lstname':namekeword,'count':count,'key':keyword}
@@ -47,6 +47,24 @@ def AddReview(request):
     return redirect('SoiHiso:NameRes',name_restuarant )
 
 def popular(request):
+    res = len(Restaurant.objects.all())
+    reviews = Review.objects.values_list('restaurant_id', flat=True).order_by('restaurant_id')
+    point = Review.objects.values_list('point', flat=True).order_by('point')
+    print(res)
+    print(reviews)
+    print(point)
+    a = 0
+    for i in range(1,res+1):
+        for j in reviews:
+            if i == j:
+                a += point[i]
+                print(a)
+            else:
+                print("Not")
+
+
+
+
     names = Restaurant.objects.values_list("id", "name_text")
     length_names = len(names) + 1
     avg_star = [0] * length_names
@@ -55,3 +73,4 @@ def popular(request):
         avg_star[id] =  Review.objects.values_list("restaurant_id", "point").filter(restaurant_id = id)
     context = {'names': names}
     return render(request, 'popular.html', context)
+

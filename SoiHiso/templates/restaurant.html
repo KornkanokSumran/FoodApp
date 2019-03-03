@@ -3,12 +3,13 @@
 body {background-color: rgb(255, 143, 190,0.2);}
 </style>
 <h1>ร้านอาหาร</h1>
-  <form action= "{% url 'SoiHiso:NameRes' %}" method="post">
+  <form action= "{% url 'SoiHiso:search' %}" method="get">
         {% csrf_token %}
         Name :
-        <input type="text" name="name"  >   {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <input type="text" name="name"  >
         <br>
         <input type="submit" value="Search">
     </form>
 </body>
 </html>
+
