@@ -12,6 +12,8 @@ class TypeFood(models.Model):
 class Restaurant(models.Model):
     typefood = models.ForeignKey(TypeFood, on_delete=models.CASCADE)
     name_text = models.CharField(max_length=200)
+    location = models.CharField(max_length=200, default="")
+    office_hours = models.CharField(max_length=200, default="")
     def __str__(self):
         return self.name_text
 

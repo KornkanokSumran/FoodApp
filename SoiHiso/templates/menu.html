@@ -5,7 +5,11 @@
 <style>
 body {background-color: rgb(255, 230, 152);}
 </style>
-<h1>{{ name.name_text }}</h1>
+<h1>ร้าน : {{ name.name_text }}</h1>
+<b>Location :</b> {{name.location}}
+<br>
+<br>
+<b>Time :</b> {{name.office_hours}}
 
 <h3>Menu</h3>
 {% for menu in name.menu_set.all %}
