@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>ยอดนิยม</title>
 </head>
 <body>
-$END$
+        {% for item in popular %}
+            <fieldset>
+                <h2>
+                    {{item.0.1}}  :  {{item.1}}
+                    </a>
+                    <br>
+                </h2>
+            </fieldset>
+        {% endfor %}
 </body>
 </html>

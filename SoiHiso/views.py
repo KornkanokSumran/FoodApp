@@ -47,30 +47,20 @@ def AddReview(request):
     return redirect('SoiHiso:NameRes',name_restuarant )
 
 def popular(request):
-    res = len(Restaurant.objects.all())
-    reviews = Review.objects.values_list('restaurant_id', flat=True).order_by('restaurant_id')
-    point = Review.objects.values_list('point', flat=True).order_by('point')
-    print(res)
-    print(reviews)
-    print(point)
-    a = 0
-    for i in range(1,res+1):
-        for j in reviews:
-            if i == j:
-                a += point[i]
-                print(a)
-            else:
-                print("Not")
-
-
-
-
     names = Restaurant.objects.values_list("id", "name_text")
-    length_names = len(names) + 1
-    avg_star = [0] * length_names
-    get_avg = [0] * length_names
-    for id in range(1,length_names):
-        avg_star[id] =  Review.objects.values_list("restaurant_id", "point").filter(restaurant_id = id)
-    context = {'names': names}
+    avg_score = {}
+    for id in names:
+        tmp =  Review.objects.values_list("point").filter(restaurant_id = id[0])
+        tmp_score = 0
+        for score in tmp:
+            tmp_score += int(score[0])
+        print(tmp_score)
+        if tmp_score > 0:
+            avg_score[id] = float(format(tmp_score/len(tmp),'.1f'))
+        else:
+            avg_score[id] = float(tmp_score)
+    sorted_by_value = sorted(avg_score.items(), key=lambda kv: kv[1], reverse=True)
+    print(sorted_by_value)
+    context = {'popular': sorted_by_value }
     return render(request, 'popular.html', context)
 
