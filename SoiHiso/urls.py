@@ -12,8 +12,5 @@ urlpatterns = [
     path('<int:name_id>/NameRes/', views.NameRes, name='NameRes'),
     path('popular/', views.popular, name='popular'),
     path('reviews/', views.AddReview, name='review')
-
-
-
 ]
 

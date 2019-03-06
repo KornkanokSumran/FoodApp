@@ -9,14 +9,10 @@
 body {background-color: rgb(255, 240, 142);}
 </style>
 <h1>ประเภทอาหาร</h1>
-{% if latest_typefood_list %}
-    <ul>
-    {% for typefood in latest_typefood_list %}
-        <li><a href="{% url 'SoiHiso:detail' typefood.id %}">{{ typefood.typefood_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No SoiHiso are available.</p>
-{% endif %}
+{% for typefood in typefood %}
+    <li><a href="{% url 'SoiHiso:detail' typefood.id %}">{{ typefood.typefood_text }}</a></li>
+{% endfor %}
+
 </body>
 </html>
+

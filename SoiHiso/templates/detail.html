@@ -8,7 +8,7 @@ body {background-color: rgb(255, 230, 152);}
 <h1>{{ typefood.typefood_text }}</h1>
 
 
-{% for name in typefood.name_set.all %}
+{% for name in typefood.restaurant_set.all %}
 <li><a href="{% url 'SoiHiso:menu' name.id %}">{{ name.name_text}}</a></li>
 {% endfor %}
 
